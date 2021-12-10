@@ -1,5 +1,6 @@
 import AppError from '@shared/errors/AppError';
 import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import UserRepository from '../typeorm/repositories/UserRepository';
@@ -9,12 +10,13 @@ interface IRequest {
   password: string;
 }
 
-// interface IResponse {
-//   user: User;
-// }
+interface IResponse {
+  user: User;
+  token: string;
+}
 
 class CreateSessionService {
-  public async execute({ email, password }: IRequest): Promise<User> {
+  public async execute({ email, password }: IRequest): Promise<IResponse> {
     const repository = getCustomRepository(UserRepository);
     const user = await repository.findByEmail(email);
 
@@ -28,7 +30,12 @@ class CreateSessionService {
       throw new AppError('access denied.', 401);
     }
 
-    return user;
+    const token = sign({}, 'secret', {
+      subject: user.id,
+      expiresIn: '1d',
+    });
+
+    return { user, token };
   }
 }
 
