@@ -19,13 +19,13 @@ class CreateSessionService {
     const user = await repository.findByEmail(email);
 
     if (!user) {
-      throw new AppError('Incorret email/password combination.', 401);
+      throw new AppError('access denied.', 401);
     }
 
     const isConfirmed = await compare(password, user.password);
 
     if (!isConfirmed) {
-      throw new AppError('Incorret email/password combination.', 401);
+      throw new AppError('access denied.', 401);
     }
 
     return user;
