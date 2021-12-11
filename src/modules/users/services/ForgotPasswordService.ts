@@ -18,8 +18,18 @@ class ForgotPasswordService {
     const userToken = await tokenRepository.generate(user.id);
 
     await EtherealMail.sendMail({
-      to: email,
-      body: `Solicitação de redefinição de senha: ${userToken?.token}`,
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: '[API Vendas] - recuperação de senha',
+      templateData: {
+        template: `Olá, {{name}}. Segue solicitação de redefinição de senha: {{token}}`,
+        variables: {
+          name: user.name,
+          token: userToken.token,
+        },
+      },
     });
   }
 }

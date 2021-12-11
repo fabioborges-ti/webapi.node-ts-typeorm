@@ -7,7 +7,7 @@ interface IMailContact {
 }
 
 interface ITemplateVariable {
-  [key: string]: string | number;
+  [key: string]: string;
 }
 
 interface IParseMailTemplate {
