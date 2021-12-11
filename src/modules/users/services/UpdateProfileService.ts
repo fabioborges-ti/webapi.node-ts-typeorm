@@ -27,7 +27,7 @@ class UpdateProfileService {
     }
 
     const emailExists = await repository.findByEmail(email);
-    if (emailExists && user.id !== emailExists.id) {
+    if (emailExists && emailExists.id !== user_id) {
       throw new AppError('There is already one user with this email');
     }
 
