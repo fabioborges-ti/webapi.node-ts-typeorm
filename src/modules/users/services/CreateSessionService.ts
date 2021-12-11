@@ -21,15 +21,11 @@ class CreateSessionService {
     const repository = getCustomRepository(UserRepository);
     const user = await repository.findByEmail(email);
 
-    if (!user) {
-      throw new AppError('access denied.', 401);
-    }
+    if (!user) throw new AppError('access denied.', 401);
 
     const isConfirmed = await compare(password, user.password);
 
-    if (!isConfirmed) {
-      throw new AppError('access denied.', 401);
-    }
+    if (!isConfirmed) throw new AppError('access denied.', 401);
 
     const token = sign({}, authConfig.jwt.secret, {
       subject: user.id,

@@ -19,7 +19,6 @@ class UserRepository extends Repository<User> {
         email,
       },
     });
-
     return user;
   }
 
