@@ -6,6 +6,7 @@ import passwordRouter from '@modules/users/routes/password.routes';
 import productsRouter from '@modules/products/routes/products.routes';
 import profileRouter from '@modules/users/routes/profile.routes';
 import customerRouter from '@modules/customers/routes/customer.routes';
+import ordersRouter from '@modules/orders/routes/orders.routes';
 
 const routes = Router();
 
@@ -15,5 +16,6 @@ routes.use('/password', passwordRouter);
 routes.use('/products', productsRouter);
 routes.use('/profile', profileRouter);
 routes.use('/customers', customerRouter);
+routes.use('/orders', ordersRouter);
 
 export default routes;
