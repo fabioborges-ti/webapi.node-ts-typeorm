@@ -1,10 +1,13 @@
 import { Router } from 'express';
-import ProductsController from '../controllers/ProductsController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import CustomerController from '../controllers/CustomerController';
+import isAuthenticated from 'src/middlewares/isAuthenticated';
 
-const controller = new ProductsController();
+const controller = new CustomerController();
 
 const router = Router();
+
+router.use(isAuthenticated);
 
 router.get('/', controller.index);
 
@@ -23,8 +26,7 @@ router.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      price: Joi.number().precision(2).required(),
-      quantity: Joi.number().required(),
+      email: Joi.string().email().required(),
     },
   }),
   controller.create,
@@ -38,8 +40,7 @@ router.put(
     },
     [Segments.BODY]: {
       name: Joi.string().required(),
-      price: Joi.number().precision(2).required(),
-      quantity: Joi.number().required(),
+      email: Joi.string().email().required(),
     },
   }),
   controller.update,
