@@ -6,7 +6,7 @@ class ForgotPasswordController {
     const { email } = req.body;
     const service = new ForgotPasswordService();
     await service.execute({ email });
-    return res.status(200).json({ message: 'Sent email to reset password' });
+    return res.json({ message: 'Sent email to reset password' });
   }
 }
 

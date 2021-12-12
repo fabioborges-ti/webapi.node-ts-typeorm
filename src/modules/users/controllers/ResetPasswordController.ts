@@ -6,7 +6,7 @@ class ResetPasswordController {
     const { password, token } = req.body;
     const service = new ResetPasswordService();
     await service.execute({ password, token });
-    return res.status(200).json({ message: 'reset successful process.' });
+    return res.json({ message: 'reset successful process.' });
   }
 }
 

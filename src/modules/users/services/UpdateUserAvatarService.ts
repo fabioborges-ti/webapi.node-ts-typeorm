@@ -15,15 +15,11 @@ class UpdateUserAvatarService {
   public async execute({ user_id, filename }: IRequest): Promise<User> {
     const repository = getCustomRepository(UserRepository);
     const user = await repository.findById(user_id);
-
-    if (!user) {
-      throw new AppError('User not found.');
-    }
+    if (!user) throw new AppError('User not found.');
 
     if (user.avatar) {
       const avatarFile = path.join(uploadConfig.directory, user.avatar);
       const fileExists = await fs.promises.stat(avatarFile);
-
       if (fileExists) {
         await fs.promises.unlink(avatarFile);
       }

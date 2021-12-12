@@ -3,10 +3,10 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import ForgotPasswordController from '../controllers/ForgotPasswordController';
 import ResetPasswordController from '../controllers/ResetPasswordController';
 
-const router = Router();
-
 const forgotController = new ForgotPasswordController();
 const resetController = new ResetPasswordController();
+
+const router = Router();
 
 router.post(
   '/forgot',

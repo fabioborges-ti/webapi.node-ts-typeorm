@@ -6,11 +6,12 @@ import UsersController from '../controllers/UsersController';
 import isAuthenticated from 'src/middlewares/isAuthenticated';
 import UsersAvatarController from '../controllers/UsersAvatarController';
 
-const router = Router();
+const upload = multer(uploadConfig);
+
 const controller = new UsersController();
 const avatarController = new UsersAvatarController();
 
-const upload = multer(uploadConfig);
+const router = Router();
 
 router.get('/', isAuthenticated, controller.index);
 

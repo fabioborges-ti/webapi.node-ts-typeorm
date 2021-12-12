@@ -11,11 +11,7 @@ class ShowUserService {
   public async execute({ id }: IRequest): Promise<User> {
     const repository = getCustomRepository(UserRepository);
     const user = await repository.findById(id);
-
-    if (!user) {
-      throw new AppError('User not found.');
-    }
-
+    if (!user) throw new AppError('User not found.');
     return user;
   }
 }
